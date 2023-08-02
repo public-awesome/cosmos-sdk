@@ -589,6 +589,8 @@ func (s *IntegrationTestSuite) TestSimMultiSigTx() {
 }
 
 func (s IntegrationTestSuite) TestGetBlockWithTxs_GRPC() {
+	_, err := s.network.WaitForHeight(s.txHeight + 1)
+	s.Require().NoError(err)
 	testCases := []struct {
 		name      string
 		req       *tx.GetBlockWithTxsRequest
@@ -600,6 +602,8 @@ func (s IntegrationTestSuite) TestGetBlockWithTxs_GRPC() {
 		{"bad height", &tx.GetBlockWithTxsRequest{Height: 99999999}, true, "height must not be less than 1 or greater than the current height"},
 		{"bad pagination", &tx.GetBlockWithTxsRequest{Height: s.txHeight, Pagination: &query.PageRequest{Offset: 1000, Limit: 100}}, true, "out of range"},
 		{"good request", &tx.GetBlockWithTxsRequest{Height: s.txHeight}, false, ""},
+		{"good request with no txs", &tx.GetBlockWithTxsRequest{Height: s.txHeight + 1}, false, ""},
+		{"good request with no tx and bad pagination", &tx.GetBlockWithTxsRequest{Height: s.txHeight + 1, Pagination: &query.PageRequest{Offset: 1000, Limit: 1}}, true, "out of range"},
 		{"with pagination request", &tx.GetBlockWithTxsRequest{Height: s.txHeight, Pagination: &query.PageRequest{Offset: 0, Limit: 1}}, false, ""},
 		{"page all request", &tx.GetBlockWithTxsRequest{Height: s.txHeight, Pagination: &query.PageRequest{Offset: 0, Limit: 100}}, false, ""},
 	}
@@ -612,7 +616,9 @@ func (s IntegrationTestSuite) TestGetBlockWithTxs_GRPC() {
 				s.Require().Contains(err.Error(), tc.expErrMsg)
 			} else {
 				s.Require().NoError(err)
-				s.Require().Equal("foobar", grpcRes.Txs[0].Body.Memo)
+				if len(grpcRes.Txs) > 0 {
+					s.Require().Equal("foobar", grpcRes.Txs[0].Body.Memo)
+				}
 				s.Require().Equal(grpcRes.Block.Header.Height, tc.req.Height)
 				if tc.req.Pagination != nil {
 					s.Require().LessOrEqual(len(grpcRes.Txs), int(tc.req.Pagination.Limit))
