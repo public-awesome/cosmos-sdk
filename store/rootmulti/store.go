@@ -508,6 +508,7 @@ func (rs *Store) CacheMultiStoreWithVersion(version int64) (types.CacheMultiStor
 			// if we got error from loading a module store
 			// we fetch commit info of this version
 			// we use commit info to check if the store existed at this version or not
+			additionalInfo := ""
 			if err != nil {
 				if commitInfo == nil {
 					var errCommitInfo error
@@ -516,7 +517,7 @@ func (rs *Store) CacheMultiStoreWithVersion(version int64) (types.CacheMultiStor
 					if errCommitInfo != nil {
 						return nil, errCommitInfo
 					}
-
+					additionalInfo = fmt.Sprintf("commit info: %d, infos: %d", commitInfo.Version, len(commitInfo.StoreInfos))
 					for _, storeInfo := range commitInfo.StoreInfos {
 						storeInfos[storeInfo.Name] = true
 					}
@@ -525,7 +526,7 @@ func (rs *Store) CacheMultiStoreWithVersion(version int64) (types.CacheMultiStor
 				// If the store existed at this version, it means there's actually an error
 				// getting the root store at this version.
 				if storeInfos[key.Name()] {
-					return nil, fmt.Errorf("error loading store %s, %w", key.Name(), err)
+					return nil, fmt.Errorf("error loading store %s, %w; %s", key.Name(), err, additionalInfo)
 				}
 			}
 
