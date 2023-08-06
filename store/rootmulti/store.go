@@ -525,7 +525,7 @@ func (rs *Store) CacheMultiStoreWithVersion(version int64) (types.CacheMultiStor
 				// If the store existed at this version, it means there's actually an error
 				// getting the root store at this version.
 				if storeInfos[key.Name()] {
-					return nil, err
+					return nil, fmt.Errorf("error loading store %s, %w", key.Name(), err)
 				}
 			}
 
