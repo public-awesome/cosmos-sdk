@@ -12,16 +12,32 @@ require (
 	github.com/cosmos/cosmos-sdk v0.51.0
 	github.com/cosmos/gogoproto v1.5.0
 	github.com/decred/dcrd/dcrec/secp256k1/v4 v4.3.0
+	github.com/ethereum/go-ethereum v1.14.5
 	github.com/spf13/cobra v1.8.0
 	github.com/stretchr/testify v1.9.0
+	github.com/tidwall/gjson v1.17.1
+	github.com/tidwall/sjson v1.2.5
 	google.golang.org/grpc v1.64.0
 	google.golang.org/protobuf v1.34.1
 )
 
 require (
+	github.com/bits-and-blooms/bitset v1.10.0 // indirect
+	github.com/consensys/bavard v0.1.13 // indirect
+	github.com/consensys/gnark-crypto v0.12.1 // indirect
+	github.com/crate-crypto/go-kzg-4844 v1.0.0 // indirect
+	github.com/ethereum/c-kzg-4844 v1.0.0 // indirect
+	github.com/holiman/uint256 v1.2.4 // indirect
+	github.com/mmcloughlin/addchain v0.4.0 // indirect
+	github.com/tidwall/match v1.1.1 // indirect
+	github.com/tidwall/pretty v1.2.0 // indirect
+	rsc.io/tmplfunc v0.0.3 // indirect
+)
+
+require (
 	buf.build/gen/go/cometbft/cometbft/protocolbuffers/go v1.34.1-20240312114316-c0d3497e35d6.1 // indirect
 	buf.build/gen/go/cosmos/gogo-proto/protocolbuffers/go v1.34.1-20240130113600-88ef6483f90f.1 // indirect
-	cosmossdk.io/errors v1.0.1 // indirect
+	cosmossdk.io/errors v1.0.1
 	cosmossdk.io/log v1.3.1 // indirect
 	cosmossdk.io/math v1.3.0
 	cosmossdk.io/store v1.1.1-0.20240418092142-896cdf1971bc // indirect
@@ -35,7 +51,7 @@ require (
 	github.com/99designs/keyring v1.2.2 // indirect
 	github.com/DataDog/datadog-go v4.8.3+incompatible // indirect
 	github.com/DataDog/zstd v1.5.5 // indirect
-	github.com/Microsoft/go-winio v0.6.1 // indirect
+	github.com/Microsoft/go-winio v0.6.2 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bgentry/speakeasy v0.1.1-0.20220910012023-760eaf8b6816 // indirect
 	github.com/btcsuite/btcd/btcec/v2 v2.3.3 // indirect
@@ -45,7 +61,7 @@ require (
 	github.com/cockroachdb/pebble v1.1.0 // indirect
 	github.com/cockroachdb/redact v1.1.5 // indirect
 	github.com/cockroachdb/tokenbucket v0.0.0-20230807174530-cc333fc44b06 // indirect
-	github.com/cometbft/cometbft v1.0.0-alpha.2.0.20240530055211-ae27f7eb3c08 // indirect
+	github.com/cometbft/cometbft v1.0.0-alpha.2.0.20240530055211-ae27f7eb3c08
 	github.com/cometbft/cometbft-db v0.12.0 // indirect
 	github.com/cometbft/cometbft/api v1.0.0-rc.1 // indirect
 	github.com/cosmos/btcutil v1.0.5 // indirect
@@ -78,7 +94,7 @@ require (
 	github.com/golang/glog v1.2.0 // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
 	github.com/golang/protobuf v1.5.4 // indirect
-	github.com/golang/snappy v0.0.4 // indirect
+	github.com/golang/snappy v0.0.5-0.20220116011046-fa5810519dcb // indirect
 	github.com/google/btree v1.1.2 // indirect
 	github.com/google/flatbuffers v2.0.8+incompatible // indirect
 	github.com/google/go-cmp v0.6.0 // indirect
@@ -151,13 +167,11 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/crypto v0.24.0 // indirect
 	golang.org/x/exp v0.0.0-20240531132922-fd00a4e0eefc // indirect
-	golang.org/x/mod v0.17.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
 	golang.org/x/sys v0.21.0 // indirect
 	golang.org/x/term v0.21.0 // indirect
-	golang.org/x/text v0.16.0 // indirect
-	golang.org/x/tools v0.21.1-0.20240508182429-e35e4ccd0d2d // indirect
+	golang.org/x/text v0.16.0
 	google.golang.org/genproto v0.0.0-20240227224415-6ceb2ff114de // indirect
 	google.golang.org/genproto/googleapis/api v0.0.0-20240318140521-94a12d6c2237 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240515191416-fc5f0ca64291 // indirect

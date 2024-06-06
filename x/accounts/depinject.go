@@ -15,6 +15,7 @@ import (
 	"cosmossdk.io/x/accounts/defaults/multisig"
 	"cosmossdk.io/x/tx/signing"
 
+	ethbaseaccount "cosmossdk.io/x/accounts/defaults/ethbase"
 	"github.com/cosmos/cosmos-sdk/codec"
 	cdctypes "github.com/cosmos/cosmos-sdk/codec/types"
 )
@@ -51,6 +52,7 @@ type ModuleOutputs struct {
 }
 
 var _ signing.SignModeHandler = directHandler{}
+var _ signing.SignModeHandler = ethHandler{}
 
 type directHandler struct{}
 
@@ -62,9 +64,22 @@ func (s directHandler) GetSignBytes(_ context.Context, _ signing.SignerData, _ s
 	panic("not implemented")
 }
 
+type ethHandler struct{}
+
+// GetSignBytes implements signing.SignModeHandler.
+func (e ethHandler) GetSignBytes(ctx context.Context, signerData signing.SignerData, txData signing.TxData) ([]byte, error) {
+	panic("unimplemented")
+}
+
+// Mode implements signing.SignModeHandler.
+func (e ethHandler) Mode() signingv1beta1.SignMode {
+	return signingv1beta1.SignMode_SIGN_MODE_TEXTUAL
+}
+
 func ProvideModule(in ModuleInputs) ModuleOutputs {
 	handler := directHandler{}
 	account := baseaccount.NewAccount("base", signing.NewHandlerMap(handler))
+	ethaccount := ethbaseaccount.NewAccount("ethbase", signing.NewHandlerMap(handler))
 	accountskeeper, err := NewKeeper(
 		in.Cdc, in.Environment, in.AddressCodec, in.Registry, account,
 		accountstd.AddAccount(lockup.CONTINUOUS_LOCKING_ACCOUNT, lockup.NewContinuousLockingAccount),
@@ -72,6 +87,7 @@ func ProvideModule(in ModuleInputs) ModuleOutputs {
 		accountstd.AddAccount(lockup.DELAYED_LOCKING_ACCOUNT, lockup.NewDelayedLockingAccount),
 		accountstd.AddAccount(lockup.PERMANENT_LOCKING_ACCOUNT, lockup.NewPermanentLockingAccount),
 		accountstd.AddAccount(multisig.MULTISIG_ACCOUNT, multisig.NewAccount),
+		ethaccount,
 	)
 	if err != nil {
 		panic(err)
