@@ -62,6 +62,14 @@ func (ms multiStore) Commit() storetypes.CommitID {
 	panic("not implemented")
 }
 
+func (ms multiStore) SetCommitting() {
+	panic("not implemented")
+}
+
+func (ms multiStore) UnsetCommitting() {
+	panic("not implemented")
+}
+
 func (ms multiStore) LastCommitID() storetypes.CommitID {
 	panic("not implemented")
 }
@@ -134,6 +142,10 @@ func (ms multiStore) SetIAVLDisableFastNode(disable bool) {
 	panic("not implemented")
 }
 
+func (ms multiStore) SetIAVLFastNodeModuleWhitelist(modulesToWhitelist []string) {
+	panic("not implemented")
+}
+
 func (ms multiStore) SetLazyLoading(bool) {
 	panic("not implemented")
 }
@@ -157,6 +169,10 @@ func (ms multiStore) RollbackToVersion(version int64) error {
 }
 
 func (ms multiStore) LatestVersion() int64 {
+	panic("not implemented")
+}
+
+func (ms multiStore) GetCommitInfo(key int64) (*storetypes.CommitInfo, error) {
 	panic("not implemented")
 }
 

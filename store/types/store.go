@@ -21,6 +21,8 @@ type Store interface {
 type Committer interface {
 	Commit() CommitID
 	LastCommitID() CommitID
+	SetCommitting()
+	UnsetCommitting()
 
 	SetPruning(pruningtypes.PruningOptions)
 	GetPruning() pruningtypes.PruningOptions
@@ -154,6 +156,9 @@ type CommitMultiStore interface {
 	// Panics on a nil key.
 	GetCommitKVStore(key StoreKey) CommitKVStore
 
+	// Panics on a nil version.
+	GetCommitInfo(ver int64) (*CommitInfo, error)
+
 	// Load the latest persisted version. Called once after all calls to
 	// Mount*Store() are complete.
 	LoadLatestVersion() error
@@ -188,8 +193,8 @@ type CommitMultiStore interface {
 	// SetIAVLDisableFastNode enables/disables fastnode feature on iavl.
 	SetIAVLDisableFastNode(disable bool)
 
-	// SetIAVLLazyLoading enable/disable lazy loading on iavl.
-	SetLazyLoading(lazyLoading bool)
+	// SetIAVLFastNodeModuleWhitelist sets the modules to whitelist for IAVL fast node.
+	SetIAVLFastNodeModuleWhitelist(modulesToWhitelist []string)
 
 	// RollbackToVersion rollback the db to specific version(height).
 	RollbackToVersion(version int64) error
