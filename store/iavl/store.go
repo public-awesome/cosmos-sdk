@@ -54,7 +54,6 @@ func LoadStore(db dbm.DB, logger log.Logger, key types.StoreKey, id types.Commit
 // provided DB. An error is returned if the version fails to load, or if called with a positive
 // version on an empty tree.
 func LoadStoreWithInitialVersion(db dbm.DB, logger log.Logger, key types.StoreKey, id types.CommitID, initialVersion uint64, cacheSize int, disableFastNode bool) (types.CommitKVStore, error) {
-	fmt.Println("IAVL LoadStoreWithInitialVersion", initialVersion, disableFastNode)
 	// Create a new IAVL tree with the async pruning enabled
 	tree := iavl.NewMutableTree(wrapper.NewIAVLDB(db), cacheSize, disableFastNode, clog.NewNopLogger(), iavl.InitialVersionOption(initialVersion), iavl.AsyncPruningOption(true))
 
@@ -63,7 +62,7 @@ func LoadStoreWithInitialVersion(db dbm.DB, logger log.Logger, key types.StoreKe
 		return nil, err
 	}
 
-	fmt.Printf("IAVL V1 Check store_key:%s, version:%d, commit:%X, isUpgradeable:%t\n", key.String(), initialVersion, fmt.Sprintf("%X", id), isUpgradeable)
+	fmt.Printf("IAVL V1 Check store_key:%s, version:%d, commit:%X, isUpgradeable:%t, disableFastNode:%t\n", key.String(), initialVersion, fmt.Sprintf("%X", id), isUpgradeable, disableFastNode)
 
 	if isUpgradeable && logger != nil {
 		logger.Info(
