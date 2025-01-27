@@ -991,10 +991,8 @@ func (rs *Store) loadCommitStoreFromParams(key types.StoreKey, id types.CommitID
 		var err error
 
 		if params.initialVersion == 0 {
-			fmt.Println("IAVL LoadStore", params.initialVersion, disabledFastNodes)
 			store, err = iavl.LoadStore(db, rs.logger, key, id, rs.iavlCacheSize, disabledFastNodes)
 		} else {
-			fmt.Println("IAVL LoadStoreWithInitialVersion", params.initialVersion, disabledFastNodes)
 			store, err = iavl.LoadStoreWithInitialVersion(db, rs.logger, key, id, params.initialVersion, rs.iavlCacheSize, disabledFastNodes)
 		}
 

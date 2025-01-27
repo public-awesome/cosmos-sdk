@@ -63,22 +63,7 @@ func LoadStoreWithInitialVersion(db dbm.DB, logger log.Logger, key types.StoreKe
 		return nil, err
 	}
 
-	fmt.Println("IAVL isUpgradeable", isUpgradeable)
-	logger.Info(
-		"IAVL V1 check",
-		"store_key", key.String(),
-		"version", initialVersion,
-		"commit", fmt.Sprintf("%X", id),
-		"isUpgradeable", isUpgradeable,
-	)
-
-	logger.Info(
-		"IAVL V1 check",
-		"store_key", key.String(),
-		"version", initialVersion,
-		"commit", fmt.Sprintf("%X", id),
-		"isUpgradeable", isUpgradeable,
-	)
+	fmt.Printf("IAVL V1 Check store_key:%s, version:%d, commit:%X, isUpgradeable:%t\n", key.String(), initialVersion, fmt.Sprintf("%X", id), isUpgradeable)
 
 	if isUpgradeable && logger != nil {
 		logger.Info(
